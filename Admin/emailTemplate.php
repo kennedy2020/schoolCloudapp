@@ -96,13 +96,6 @@
             color:#AAAAAA;
         }
 
-        .contentEditable li{
-
-        }
-
-        .appart p{
-
-        }
         .bgItem{
             background: #ffffff;
         }
