@@ -58,6 +58,7 @@ class USER
                           $_SESSION['user_role'] = $data['user_role'];
                           $_SESSION['role_no'] = $data['school_role_no'];
                           $_SESSION['email'] = $data['user_email'];
+                        
 
                           //keep track of loggins
                           $message = 'Log in';
@@ -69,7 +70,7 @@ class USER
                   //keep this in logs too
                    $message = "Log in attempt";
                    $this->log_in_db($ip, $datetime, $username, $message);
-                    
+                                      
                   //$this ->login_attempt_count($max_time_in_seconds, $max_attempts, $ip, $datetime);
                    $_SESSION['error'] = 'Invalid Username or Password  ';
                        
@@ -174,6 +175,41 @@ class USER
             return true;
         }else{
            header('Location: ../index.php');
+        }
+    }
+
+   public function isAdmin()
+    {
+        if (isset($_SESSION['user_session']) && $_SESSION['user_role'] == 'Admin' ) {
+            return true;
+           
+        }else{
+      
+           header('Location: ../'.$_SESSION['user_role'].'/index.php');
+           
+        }
+    }
+
+    public function isParent())
+    {
+        if (isset($_SESSION['user_session']) && $_SESSION['user_role'] == 'Parent' ) {
+            return true;
+           
+        }else{
+      
+           header('Location: ../'.$_SESSION['user_role'].'/index.php');
+           
+        }
+    }
+    public function isTeacher())
+    {
+        if (isset($_SESSION['user_session']) && $_SESSION['user_role'] == 'Teacher' ) {
+            return true;
+           
+        }else{
+      
+           header('Location: ../'.$_SESSION['user_role'].'/index.php');
+           
         }
     }
 
