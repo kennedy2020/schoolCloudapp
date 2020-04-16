@@ -190,7 +190,7 @@ class USER
         }
     }
 
-    public function isParent())
+    public function isParent()
     {
         if (isset($_SESSION['user_session']) && $_SESSION['user_role'] == 'Parent' ) {
             return true;
@@ -201,7 +201,7 @@ class USER
            
         }
     }
-    public function isTeacher())
+    public function isTeacher()
     {
         if (isset($_SESSION['user_session']) && $_SESSION['user_role'] == 'Teacher' ) {
             return true;

@@ -13,6 +13,7 @@
 require_once '../includes/dbconfig.php';
 
 $user->is_loggedin();
+$user->isParent();
 
 if(isset($_POST['submitForm']))
 {
@@ -52,7 +53,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bubble Point | Parents</title>
+    <title>SchoolCloud | Parents</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -148,10 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
               </li>
 
-              <li>
-                <!-- The user image in the navbar-->
-                <img src="../dist/img/app_logo.png" width="160" height="50" class="user-image" alt="User Image">
-              </li>
+             
             </ul>
           </div>
         </nav>
@@ -304,7 +302,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           All rights reserved.
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="http://ryepeg.ie/bubblepoint.htm">Ryepeg Software Systems</a>.</strong>
+        <strong>Copyright &copy; 2020 Daniel Chende</strong>
       </footer>
 
 

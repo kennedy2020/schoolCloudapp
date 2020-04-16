@@ -1,4 +1,31 @@
-<?php require_once '../includes/dbconfig.php'; $user->is_loggedin(); include_once '../includes/header.php'; if(isset($_POST['addUser'])){ $name = $_POST['user_name']; $surname = $_POST['user_surname']; $username = $_POST['username']; $status = $_POST['status']; $email = $_POST['user_email']; $password = $_POST['UserPassword']; $repeatPassword = $_POST['RepeatPassword']; if (($password == $repeatPassword) || (strlen($password) > 12)){ $hashedpassword = password_hash($password, PASSWORD_ARGON2I); $user->addUser($roleNo, $name, $surname, $username, $status, $email, $hashedpassword); $last_inserted_id = $user->getLastUser($roleNo, $email, $status); if($status =="Parent"){ $primary = 0; $parent_contactNo = Null; $parents->AddParent($last_inserted_id, $roleNo, $name, $surname, $primary, $parent_contactNo, $email); } else if($status =="Teacher") { $alias = NULL; $photo = "../dist/img/avatar5.png"; $teacher->AddTeacher($last_inserted_id, $roleNo, $name, $surname, $alias, $photo); } header("Refresh:0"); } } ?>
+<?php require_once '../includes/dbconfig.php';
+ $user->is_loggedin();
+ $user->isAdmin();
+  include_once '../includes/header.php';
+  if (isset($_POST['addUser'])) {
+    $name = $_POST['user_name'];
+    $surname = $_POST['user_surname'];
+    $username = $_POST['username'];
+    $status = $_POST['status'];
+    $email = $_POST['user_email'];
+    $password = $_POST['UserPassword'];
+    $repeatPassword = $_POST['RepeatPassword'];
+    if (($password == $repeatPassword) || (strlen($password) > 12)) {
+        $hashedpassword = password_hash($password, PASSWORD_ARGON2I);
+        $user - > addUser($roleNo, $name, $surname, $username, $status, $email, $hashedpassword);
+        $last_inserted_id = $user - > getLastUser($roleNo, $email, $status);
+        if ($status == "Parent") {
+            $primary = 0;
+            $parent_contactNo = Null;
+            $parents - > AddParent($last_inserted_id, $roleNo, $name, $surname, $primary, $parent_contactNo, $email);
+        } else if ($status == "Teacher") {
+            $alias = NULL;
+            $photo = "../dist/img/avatar5.png";
+            $teacher - > AddTeacher($last_inserted_id, $roleNo, $name, $surname, $alias, $photo);
+        }
+        header("Refresh:0");
+    }
+} ?>
 
 <body class="hold-transition skin-blue sidebar-mini">
 

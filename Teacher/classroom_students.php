@@ -1,6 +1,7 @@
 <?php
 require_once '../includes/dbconfig.php';
 $user->is_loggedin();
+$user->isTeacher();
 include_once '../includes/header.php';
 $classroom_id = $classroom->getClassroomId($roleNo, $id);
 //echo $classroom_id;

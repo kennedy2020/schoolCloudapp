@@ -1,4 +1,5 @@
 <?php
+$user->isAdmin();
 
 require_once '../includes/dbconfig.php';
 

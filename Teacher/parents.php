@@ -3,6 +3,7 @@
 
 require_once '../includes/dbconfig.php';
 $user->is_loggedin();
+$user->isTeacher();
 include_once 'header.php';
 
 if(isset($_POST['addParent'])){
