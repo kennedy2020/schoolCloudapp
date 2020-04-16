@@ -9,8 +9,8 @@ require_once 'includes/dbconfig.php';
 if (isset($_POST['btn-login'])) {
     if ($user->login_attempt_count($max_time_in_seconds) <= $max_attempts) {
         if (isset($_POST['txt_uname']) && isset($_POST['txt_password'])) {
-            $username = $_POST['txt_uname'];
-            $upass = $_POST['txt_password'];
+            $username = strip_tags($_POST['txt_uname']);
+            $upass = strip_tags($_POST['txt_password']);
         }
  
         $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
@@ -60,7 +60,7 @@ if (isset($_POST['btn-login'])) {
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="#"><p class="app-logo">School Cloud</p></a>
+        <a href="index.php"><p class="app-logo">School Cloud</p></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
      

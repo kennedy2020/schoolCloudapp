@@ -7,8 +7,8 @@ $token = $_GET['token'];
 $id = base64_decode($_GET['id']);
 
 if (isset($_POST['btn-reset'])) {
-    $password = $_POST['UserPassword'];
-    $repeatPassword = $_POST['RepeatPassword']; 
+    $password = strip_tags($_POST['UserPassword']);
+    $repeatPassword = strip_tags($_POST['RepeatPassword']); 
 
     if (($password == $repeatPassword) || (strlen($password) > 12)){    
 

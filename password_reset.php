@@ -1,4 +1,10 @@
-<?php require_once 'includes/dbconfig.php'; //$user->is_loggedin(); include_once 'includes/header.php'; if (isset($_POST['btn-reset'])) { $email = $_POST['user_email']; $user->checkEmailofuser($email); } ?>
+<?php require_once 'includes/dbconfig.php'; 
+
+include_once 'includes/header.php'; 
+if (isset($_POST['btn-reset'])) 
+{ $email = strip_tags($_POST['user_email']);
+ $user->checkEmailofuser($email); } 
+ ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 
