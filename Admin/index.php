@@ -260,20 +260,10 @@ if (isset($_POST['publishNews'])){
 
             </section><!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            <section class="col-lg-5 connectedSortable">
-
-
-
-
-              
+            <section class="col-lg-5 connectedSortable">    
 
 
             </section><!-- right col -->
-
-
-
-
-
 
             <div class="col-md-12">
 
@@ -311,22 +301,11 @@ if (isset($_POST['publishNews'])){
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-
-
-
-
           </div><!-- /.row (main row) -->
-
-
-
 
           <!-- Your Page Content Here -->
 
         </section><!-- /.content -->
-
-
-
-
     <?php
 
   include_once '../includes/footer.php';

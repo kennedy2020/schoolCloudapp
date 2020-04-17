@@ -29,18 +29,19 @@ class hotlink
     }
 
 
-    public function send_message($studentid, $message, $user_email)
+    public function send_message($studentid, $message, $user_email, $role)
     {
         try {
            
             
-        $stmt = $this->db->prepare("INSERT INTO hotlinks (id_pupil, messages, user_email) VALUES(:id_pupil, :messages, :email)");
+        $stmt = $this->db->prepare("INSERT INTO hotlinks (id_pupil, messages, user_email, school_role_no) VALUES(:id_pupil, :messages, :email, :role_no)");
             $stmt->bindparam(":id_pupil", $studentid);
             $stmt->bindparam(":messages", $message);         
             $stmt->bindparam(":email", $user_email);
+            $stmt->bindparam(":role_no", $role);
             $stmt->execute();  
            
-         return true;
+        return true;
     
 
         } catch (PDOException $e) {
@@ -63,20 +64,24 @@ class hotlink
                   <div class="">
 
                     <p class="message">
-                      <a href="read-mail.php?mailId=' . $row['id'] . '" class="name">
+                      <a href="#" class="name">
                         <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ' . $time . '</small>
                         ' . $row['StudentFN'] . ' ' . $row['StudentSN'] . '
                       </a>
                       <p>
                       ';
-                $str = $row['message'];
-                $this->getNWordsFromString($str, 10);
+                $str = $row['messages'];
+                
+            //  $this->getNWordsFromString($str, 10);
+           echo $this->get_first_num_of_words($str, 5);
 
 
                 echo '...
+                
                     </p>
                     </p>
-
+                    <div class="text-right">
+                    <a href="read-mail.php?mailId=' . $row['id'] . '" ><button type="button" class="btn btn-primary">Read more</button></a></div>
                   </div><!-- /.item -->
                   <hr />
                 ';
@@ -102,20 +107,21 @@ class hotlink
                   <div class="">
 
                     <p class="message">
-                      <a href="read-mail.php?mailId=' . $row['id'] . '" class="name">
+                      <a href="#" class="name">
                         <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ' . $time . '</small>
                         ' . $row['StudentFN'] . ' ' . $row['StudentSN'] . '
                       </a>
                       <p>
                       ';
-                $str = $row['message'];
-                $this->getNWordsFromString($str, 10);
+                $str = $row['messages'];
+                echo $this->get_first_num_of_words($str, 5);
 
 
                 echo '...
                     </p>
                     </p>
-
+                    <div class="text-right">
+                    <a href="read-mail.php?mailId=' . $row['id'] . '" ><button type="button" class="btn btn-primary">Read more</button></a></div>
                   </div><!-- /.item -->
                   <hr />
                 ';
@@ -124,16 +130,36 @@ class hotlink
             echo $e->getMessage();
         }
     }
-
+/*
     public function getNWordsFromString($str, $no)
     {
         $arr = explode(" ", str_replace(",", ", ", $str));
-        for ($index = 0; $index < $no; $index++) {
-            echo $arr[$index] . " ";
+        for ($index = 0; $index < 10; $index++) {
+        echo $arr[$index] . " ";
         }
     }
 
+*/
 
+private function get_first_num_of_words($string, $num_of_words)
+    {
+        $string = preg_replace('/\s+/', ' ', trim($string));
+        $words = explode(" ", $string); // an array
+
+        // if number of words you want to get is greater than number of words in the string
+        if ($num_of_words > count($words)) {
+            // then use number of words in the string
+            $num_of_words = count($words);
+        }
+
+        $new_string = "";
+        for ($i = 0; $i < $num_of_words; $i++) {
+            $new_string .= $words[$i] . " ";
+        }
+
+        return trim($new_string);
+        
+    }
     public function readMail($roleNo, $id)
     {
         try {
@@ -147,7 +173,7 @@ class hotlink
      <div class="box-body no-padding">
                   <div class="mailbox-read-info">
                     <h3>Message Subject: ' . $row['StudentFN'] . ' ' . $row['StudentSN'] . '</h3>
-                    <h5>From: '.$row['From'].'
+                    <h5>From: '.$row['user_email'].'
                 <span class="mailbox-read-time pull-right">' . $time . '</span></h5>
                   </div><!-- /.mailbox-read-info -->
                   <div class="mailbox-controls with-border text-center">
@@ -161,7 +187,7 @@ class hotlink
                   <div class="mailbox-read-message">
                     <p>
 
-                    ' . $row['message'] . '
+                    ' . $row['messages'] . '
 
 
 </p>

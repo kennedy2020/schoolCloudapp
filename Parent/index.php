@@ -5,6 +5,7 @@ require_once '../includes/dbconfig.php';
 $user->is_loggedin();
 $user->isParent();
 $id = $_SESSION['user_session'];
+$role= $_SESSION['role_no'];
 if (isset($_POST['submitForm'])) {
 	$studentid = $_POST['student_id'];
 	$message = strip_tags($_POST['contact']);
@@ -15,7 +16,7 @@ if (isset($_POST['submitForm'])) {
 		$attendance = 1;
     }
    
- 	if ($hot_link->send_message($studentid, $message, $email)) {
+ 	if ($hot_link->send_message($studentid, $message, $email, $role)) {
         
 		$success = "Your message was sent successfully !";
 	} else {
