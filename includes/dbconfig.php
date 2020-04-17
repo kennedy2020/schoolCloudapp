@@ -48,7 +48,7 @@ include_once 'classes/teacher.php';
 include_once 'classes/user.php';
 
 $user = new USER($DB_con);
-$hot_link = new hotLink($DB_con);
+$hot_link = new hotlink($DB_con);
 $school = new School($DB_con);
 $attendance = new attendance($DB_con);
 $pupil = new PUPIL($DB_con);

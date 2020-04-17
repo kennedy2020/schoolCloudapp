@@ -3,13 +3,13 @@
  $user->isAdmin();
   include_once '../includes/header.php';
   if (isset($_POST['addUser'])) {
-    $name = $_POST['user_name'];
-    $surname = $_POST['user_surname'];
-    $username = $_POST['username'];
-    $status = $_POST['status'];
-    $email = $_POST['user_email'];
-    $password = $_POST['UserPassword'];
-    $repeatPassword = $_POST['RepeatPassword'];
+    $name = strip_tags($_POST['user_name']);
+    $surname = strip_tags($_POST['user_surname']);
+    $username = strip_tags($_POST['username']);
+    $status = strip_tags($_POST['status']);
+    $email = strip_tags($_POST['user_email']);
+    $password = strip_tags($_POST['UserPassword']);
+    $repeatPassword = strip_tags($_POST['RepeatPassword']);
     if (($password == $repeatPassword) || (strlen($password) > 12)) {
         $hashedpassword = password_hash($password, PASSWORD_ARGON2I);
         $user -> addUser($roleNo, $name, $surname, $username, $status, $email, $hashedpassword);

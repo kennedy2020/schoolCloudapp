@@ -4,21 +4,27 @@
 require_once '../includes/dbconfig.php';
 $user->is_loggedin();
 $user->isParent();
+$id = $_SESSION['user_session'];
 if (isset($_POST['submitForm'])) {
-	$student_id = $_POST['student_id'];
+	$studentid = $_POST['student_id'];
 	$message = strip_tags($_POST['contact']);
 	$email = $_SESSION['email'];
 	if (isset($_POST['attend'])) {
 		$attendance = 0;
 	} else {
 		$attendance = 1;
-	}
-	if ($hot_link->send_message($student_id, $message, $roleNo, $email)) {
+    }
+   
+    $studentid = '1';
+    $message = 'test';
+    $email = 'email@test.ie';
+
+	if ($hot_link->send_message($studentid, $message, $email)) {
      // 
 		$user->redirect("index.php");
 		$success = "Your message was sent successfully !";
 	} else {
-		$error = "Wrong Details !";
+		$error = "There was an error sending your message !";
 	}
 }
 ?>
@@ -174,7 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                     </select>
                                 </div>
-
+  
                                 <!-- textarea -->
                                 <div class="form-group">
                                     <label>Contact the School</label>

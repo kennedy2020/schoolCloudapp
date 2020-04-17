@@ -71,12 +71,12 @@ class Parents
     }
 
 
-    public function AddParent($id, $roleNo, $name, $surname, $primary, $parent_contactNo, $email)
+    public function AddParent($roleNo, $name, $surname, $primary, $parent_contactNo, $email)
     {
         try {
-            $stmt = $this->db->prepare("INSERT INTO tblParents(ParentsID, SchoolRoleNo, ParentFN, ParentSN, ParentContactNo, ParentEMail, PrimaryParent) VALUES(:parentId, :roleNo, :name, :surname, :ParentContactNo, :ParentEMail, :PrimaryParent)");
+            $stmt = $this->db->prepare("INSERT INTO tblParents( SchoolRoleNo, ParentFN, ParentSN, ParentContactNo, ParentEMail, PrimaryParent) VALUES(:parentId, :roleNo, :name, :surname, :ParentContactNo, :ParentEMail, :PrimaryParent)");
 
-            $stmt->bindparam(":parentId", $id);
+          
             $stmt->bindparam(":roleNo", $roleNo);
             $stmt->bindparam(":name", $name);
             $stmt->bindparam(":surname", $surname);

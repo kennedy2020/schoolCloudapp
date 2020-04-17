@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
 
     $user->editUser($roleNo, $name, $surname, $status, $username, $email, $user_id);
 
-    header("Refresh:0; url=../Admin/users.php");
+    header("Refresh:0; url=users.php");
 
     die();
 
@@ -56,7 +56,7 @@ $drive->execute();
 while ($d = $drive->fetch()):
 
     ?>
-    <form method="post" action="../includes/editUser.php" role="form">
+    <form method="post" action="editUser.php" role="form">
         <div class="modal-body">
 
 

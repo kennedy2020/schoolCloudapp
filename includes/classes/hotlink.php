@@ -1,7 +1,7 @@
 <?php
 
 
-class hotLink
+class hotlink
 {
     private $db;
 
@@ -14,7 +14,7 @@ class hotLink
     public function get_pupil($id)
     {
         try {
-            $stmts = $this->db->prepare("SELECT * FROM tblStudents JOIN parents_pupils ON parents_pupils.pupil_id = tblStudents.StudentID WHERE  ParentId=:id ");
+            $stmts = $this->db->prepare("SELECT * FROM tblstudents JOIN parents_pupils ON parents_pupils.pupil_id = tblstudents.StudentID WHERE  parent_id=:id ");
             $stmts->execute(array(':id' => $id));
             while ($row = $stmts->fetch()) {
                 echo '
@@ -29,19 +29,41 @@ class hotLink
     }
 
 
-    public function send_message($student_id, $message, $roleNo, $user_email)
+    public function send_message($studentid, $message, $user_email)
     {
         try {
-            $stmt = $this->db->prepare("INSERT INTO HotLinks(id_pupil,message, school_role_no, From)
-		                                               VALUES(:id_pupil, :message, :role, :from)");
-
-            $stmt->bindparam(":id_pupil", $student_id);
-            $stmt->bindparam(":message", $message);
-            $stmt->bindparam(":role", $roleNo);
+           
+            $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+        $stmt = $this->db->prepare("INSERT INTO hotlinks (id_pupil, message, From) VALUES(:id_pupil, :message, :from)");
+            $stmt->bindparam(":id_pupil", $studentid);
+            $stmt->bindparam(":message", $message);         
             $stmt->bindparam(":from", $user_email);
-            $stmt->execute();
+            $stmt->execute();        
+         //   return $stmt;
+            print_r($stmt->errorInfo());
+/*
+       $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
+            $stmt = $this->db->prepare("INSERT INTO hotlinks(id_pupil, message, From)VALUES(:id_pupils, :messages, :emails)");
 
-            return $stmt;
+            $stmt->execute([
+                ':id_pupils' => $studentid,
+                ':messages' => $message,
+                ':emails' => $user_email
+            
+         ]);
+         print_r($stmt->errorInfo());
+        
+
+        $data = [
+            'name' => $studentid,
+            'surname' => $message,
+            'sex' => $user_email,
+        ];
+        $sql = "INSERT INTO hotlinks (id_pupil, message, From) VALUES (:name, :surname, :sex)";
+        $stmt= $this->db->prepare($sql);
+        $stmt->execute($data);
+*/
+
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -51,7 +73,7 @@ class hotLink
     public function showHotPointA($roleNo, $read)
     {
         try {
-            $stmts = $this->db->prepare("SELECT * FROM HotLinks JOIN tblStudents ON HotLinks.id_pupil = tblStudents.StudentID WHERE  HotLinks.school_role_no=:roleNo and HotLinks.readAdmin=:readA");
+            $stmts = $this->db->prepare("SELECT * FROM hotlinks JOIN tblStudents ON hotlinks.id_pupil = tblStudents.StudentID WHERE  hotlinks.school_role_no=:roleNo and hotlinks.readAdmin=:readA");
             $stmts->execute(array(':roleNo' => $roleNo, ':readA' => $read));
             while ($row = $stmts->fetch()) {
                 $time = date("H:i", strtotime($row['timestamp']));
@@ -90,7 +112,7 @@ class hotLink
     public function showHotPointT($roleNo, $read, $classroomId)
     {
         try {
-            $stmts = $this->db->prepare("SELECT * FROM HotLinks JOIN tblStudents ON HotLinks.id_pupil = tblStudents.StudentID WHERE  HotLinks.school_role_no=:roleNo and HotLinks.readTeacher=:readA and tblStudents.Classroom=:classroomId");
+            $stmts = $this->db->prepare("SELECT * FROM hotlinks JOIN tblStudents ON HotLinks.id_pupil = tblStudents.StudentID WHERE  hotlinks.school_role_no=:roleNo and hotlinks.readTeacher=:readA and tblStudents.Classroom=:classroomId");
             $stmts->execute(array(':roleNo' => $roleNo, ':readA' => $read, ':classroomId' => $classroomId));
             while ($row = $stmts->fetch()) {
                 $time = date("H:i", strtotime($row['timestamp']));
@@ -136,7 +158,7 @@ class hotLink
     public function readMail($roleNo, $id)
     {
         try {
-            $stmts = $this->db->prepare("SELECT * FROM HotLinks JOIN tblStudents ON HotLinks.id_pupil = tblStudents.StudentID WHERE  HotLinks.school_role_no=:roleNo and HotLinks.id=:id");
+            $stmts = $this->db->prepare("SELECT * FROM hotlinks JOIN tblStudents ON hotlinks.id_pupil = tblStudents.StudentID WHERE  hotlinks.school_role_no=:roleNo and hotlinks.id=:id");
             $stmts->execute(array(':roleNo' => $roleNo, ':id' => $id));
             while ($row = $stmts->fetch()) {
                 $id_message = $row['id'];
@@ -178,7 +200,7 @@ class hotLink
     public function UpdateReadAdmin($emailId, $read)
     {
         try {
-            $sqlUpdate = 'UPDATE HotLinks set readAdmin=:read WHERE id=:id';
+            $sqlUpdate = 'UPDATE hotlinks set readAdmin=:read WHERE id=:id';
             $update = $this->db->prepare($sqlUpdate);
             $update->execute(array(':read' => $read, ':id' => $emailId));
         } catch (PDOException $e) {
@@ -189,7 +211,7 @@ class hotLink
     public function UpdateReadTeacher($emailId, $read)
     {
         try {
-            $sqlUpdate = 'UPDATE HotLinks set readTeacher=:read WHERE id=:id';
+            $sqlUpdate = 'UPDATE hotlinks set readTeacher=:read WHERE id=:id';
             $update = $this->db->prepare($sqlUpdate);
             $update->execute(array(':read' => $read, ':id' => $emailId));
         } catch (PDOException $e) {
