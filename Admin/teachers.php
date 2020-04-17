@@ -43,7 +43,6 @@ if(isset($_POST['AssignTeacher'])) {
 $prof = $_POST['teacher'];
   $classroom = $_POST['classroom'];
 
-
   $teacher->assignTeacher($roleNo, $prof, $classroom);
 
   header("Refresh:0");

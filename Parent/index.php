@@ -1,48 +1,26 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Danny
- * Date: 25/11/15
- * Time: 11:28 PM
- */
-?>
+<?php /** * Created by PhpStorm. * User: Danny * Date: 25/11/15 * Time: 11:28 PM */ ?>
 
 <?php
-
-
 require_once '../includes/dbconfig.php';
-
 $user->is_loggedin();
 $user->isParent();
-
-if(isset($_POST['submitForm']))
-{
-    $student_id = $_POST['student_id'];
-    $message = $_POST['contact'];
-
-    if (isset($_POST['attend'])){
-        $attendance = 0;
-    }
-    else
-    {
-        $attendance = 1;
-    }
-
-
-
-    if($hot_link->send_message($student_id,$message, $roleNo))
-    {
-       // $user->redirect("index.php");
-        $success = "Your message was sent successfully !";
-
-    }
-    else
-    {
-        $error = "Wrong Details !";
-    }
+if (isset($_POST['submitForm'])) {
+	$student_id = $_POST['student_id'];
+	$message = strip_tags($_POST['contact']);
+	$email = $_SESSION['email'];
+	if (isset($_POST['attend'])) {
+		$attendance = 0;
+	} else {
+		$attendance = 1;
+	}
+	if ($hot_link->send_message($student_id, $message, $roleNo, $email)) {
+     // 
+		$user->redirect("index.php");
+		$success = "Your message was sent successfully !";
+	} else {
+		$error = "Wrong Details !";
+	}
 }
-
-
 ?>
 <!DOCTYPE html>
 <!--
@@ -50,7 +28,8 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SchoolCloud | Parents</title>
@@ -80,8 +59,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <!--
+</head>
+<!--
   BODY TAG OPTIONS:
   =================
   Apply one or more of the following classes to get the
@@ -101,145 +80,109 @@ scratch. This page gets rid of all links and provides the needed markup only.
   |               | sidebar-mini                            |
   |---------------------------------------------------------|
   -->
-  <body class="hold-transition skin-green sidebar-mini">
+
+<body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
-      <!-- Main Header -->
-      <header class="main-header">
+        <!-- Main Header -->
+        <header class="main-header">
 
-        <!-- Logo -->
-        <a href="#" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>dm</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Parents</b></span>
-        </a>
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>dm</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Parents</b></span>
+            </a>
 
-        <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
 
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
 
+                        <!-- Notifications Menu -->
+                        <li class="dropdown notifications-menu">
+                            <!-- Menu toggle button -->
+                            <a href="#" title="Settings">
 
+                                <i class="fa fa-gears"></i>
 
+                            </a>
 
+                        </li>
 
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
+                        <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="../logout.php?logout=true" title="Log Out">
+                                <i class="fa fa-sign-out"></i>
 
+                            </a>
+                        </li>
 
-              <!-- Notifications Menu -->
-              <li class="dropdown notifications-menu">
-                <!-- Menu toggle button -->
-                <a href="#" title="Settings">
+                    </ul>
+                </div>
+            </nav>
+        </header>
 
-                  <i class="fa fa-gears"></i>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
 
-                </a>
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
 
-              </li>
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel">
+                    <div class="logo">
+                        <?php $school ->schoolLogo($roleNo); ?>
+                    </div>
 
+                </div>
 
-              <!-- Notifications: style can be found in dropdown.less -->
-              <li class="dropdown notifications-menu">
-                <a href="../logout.php?logout=true"  title="Log Out">
-                  <i class="fa fa-sign-out"></i>
+                <!-- Sidebar Menu -->
+                <?php $school ->schoolName($roleNo); ?>
 
-                </a>
-              </li>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
 
-             
-            </ul>
-          </div>
-        </nav>
-      </header>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
 
+            <!-- Main content -->
+            <section class="content">
 
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
+                <div class="col-md-12">
 
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><span class="red big">Hot</span><span class="blue big">Point</span></h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form method="post">
+                            <div class="box-body">
 
-          <!-- Sidebar user panel (optional) -->
-          <div class="user-panel">
-            <div class="logo">
-            <?php
+                                <!-- select -->
+                                <div class="groupform-">
+                                    <label>Please select your child's name:</label>
+                                    <select class="form-control" name="student_id">
+                                        <?php $hot_link ->get_pupil($id); ?>
 
-            $school ->schoolLogo($roleNo);
+                                    </select>
+                                </div>
 
+                                <!-- textarea -->
+                                <div class="form-group">
+                                    <label>Contact the School</label>
 
-            ?>
-            </div>
+                                    <textarea class="form-control" rows="10" style="resize: none;" placeholder="Please enter your message here..." maxlength="255" name="contact" required="required"></textarea>
+                                </div>
 
-          </div>
-
-
-
-          <!-- Sidebar Menu -->
-            <?php
-
-            $school ->schoolName($roleNo);
-
-
-            ?>
-
-
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-
-
-        <!-- Main content -->
-        <section class="content">
-
-
-
-
-
-            <div class="col-md-12">
-
-
-
-
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><span class="red big">Hot</span><span class="blue big">Point</span></h3>
-                    </div><!-- /.box-header -->
-                    <!-- form start -->
-                    <form method="post">
-                        <div class="box-body">
-
-
-                            <!-- select -->
-                            <div class="groupform-">
-                                <label>Please select your child's name:</label>
-                                <select class="form-control" name="student_id">
-                                    <?php
-
-
-                                    $hot_link ->get_pupil($id);
-
-
-                                    ?>
-
-                                </select>
-                            </div>
-
-                            <!-- textarea -->
-                            <div class="form-group">
-                                <label>Contact the School</label>
-
-
-                                <textarea class="form-control" rows="10" style="resize: none;" placeholder="Please enter your message here..." maxlength="255" name="contact" required="required"></textarea>
-                            </div>
-
-<!--
+                                <!--
                                                   <div class="form-group ">
                                                  <label>
                                                     <input type="checkbox" name="attend"> Please tick this box if your child will not attend school tomorrow.
@@ -248,65 +191,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 -->
 
-                        </div><!-- /.box-body -->
+                            </div>
+                            <!-- /.box-body -->
 
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right" name="submitForm">Submit</button>
-                        </div>
-                    </form>
-                </div><!-- /.box -->
-                <?php
-                if(isset($error))
-                {
-                    ?>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary pull-right" name="submitForm">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                    <?php if(isset($error)) { ?>
                     <div class="alert alert-danger">
-                        <i class="glyphicon glyphicon-warning-sign"></i> &nbsp; <?php echo $error; ?>
+                        <i class="glyphicon glyphicon-warning-sign"></i> &nbsp;
+                        <?php echo $error; ?>
                     </div>
-                    <?php
-                }
-                ?>
+                    <?php } ?>
 
-                <?php
-                if(isset($success))
-                {
-                    ?>
+                    <?php if(isset($success)) { ?>
                     <div class="alert alert-success">
-                        <i class="glyphicon  glyphicon-send"></i> &nbsp; <?php echo $success; ?>
+                        <i class="glyphicon  glyphicon-send"></i> &nbsp;
+                        <?php echo $success; ?>
                     </div>
-                    <?php
-                }
-                ?>
+                    <?php } ?>
 
+                </div>
+                <!-- /.row -->
 
+        </div>
+        <!-- /.row (main row) -->
 
-          </div><!-- /.row -->
+        <!-- Your Page Content Here -->
 
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-
-
-
-          </div><!-- /.row (main row) -->
-
-
-
-
-          <!-- Your Page Content Here -->
-
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-
-      <!-- Main Footer -->
-      <footer class="main-footer">
+    <!-- Main Footer -->
+    <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-          All rights reserved.
+            All rights reserved.
         </div>
         <!-- Default to the left -->
         <strong>Copyright &copy; 2020 Daniel Chende</strong>
-      </footer>
+    </footer>
 
-
-    </div><!-- ./wrapper -->
+    </div>
+    <!-- ./wrapper -->
 
     <!-- REQUIRED JS SCRIPTS -->
 
@@ -316,7 +248,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-      $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -327,5 +259,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="../dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../dist/js/demo.js"></script>
-  </body>
+</body>
+
 </html>

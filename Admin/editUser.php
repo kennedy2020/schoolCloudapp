@@ -6,13 +6,13 @@ $user->isAdmin();
 
 
 if(isset($_POST['submit'])){
-    $name = $_POST['user_name'];
-    $surname = $_POST['user_surname'];
-    $status = $_POST['status'];
-    $email = $_POST['user_email'];
-    $username = $_POST['username'];
-    $roleNo = $_POST['SchoolRole'];
-    $user_id = $_POST['User_id'];
+    $name = strip_tags($_POST['user_name']);
+    $surname = strip_tags($_POST['user_surname']);
+    $status = strip_tags($_POST['status']);
+    $email = strip_tags($_POST['user_email']);
+    $username = strip_tags($_POST['username']);
+    $roleNo = strip_tags($_POST['SchoolRole']);
+    $user_id = strip_tags($_POST['User_id']);
 
     $user->editUser($roleNo, $name, $surname, $status, $username, $email, $user_id);
 

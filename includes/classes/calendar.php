@@ -71,6 +71,9 @@ class Calendar
             echo $e->getMessage();
         }
     }
+   public function setNewClassroomEvent($classroomId, $eventDesc, $start, $end, $roleNo, $false){
+
+   }
 }
 
 ?>

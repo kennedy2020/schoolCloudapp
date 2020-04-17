@@ -9,6 +9,7 @@ include_once '../includes/header.php';
 if(isset($_POST['addParent'])){
     $name = $_POST['parent_name'];
     $surname = $_POST['parent_surname'];
+    $parentID =  $_POST['id'];
     if (isset($_POST['primary'])) {
 
         // Checkbox is selected
@@ -20,9 +21,8 @@ if(isset($_POST['addParent'])){
     $parent_contactNo = $_POST['parent_contactNo'];
     $email = $_POST['parent_email'];
 
-  $parents->AddParent($roleNo, $name, $surname, $primary, $parent_contactNo, $email);
-
-   header("Refresh:0");
+  $parents->AddParent($parentID, $roleNo, $name, $surname, $primary, $parent_contactNo, $email);
+  header("Refresh:0");
 
 
 

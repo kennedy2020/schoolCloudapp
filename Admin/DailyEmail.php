@@ -135,13 +135,7 @@ Layout and the use of colour will be really important.
 
     }
 
-    .contentEditable li{
-
-    }
-
-    .appart p{
-
-    }
+   
     .bgItem{
         background: #ffffff;
     }
@@ -339,42 +333,13 @@ $news="";
                                 $html3="</table></body>";
                                 $body = $html.$html2.$news.$html3;
 
-                                echo $body;
+                             //   echo $body;
 
 
                                 $subject="Daily Email";
-                                $from ="chendedaniel@yahoo.com";
-                                $name = "Daniel chednde";
-
-
-                                $mail=new PHPMailer();
-                                $mail->IsSMTP();
-                                $mail->Host       = 'smtp.gmail.com';
-
-                                $mail->SMTPSecure = 'tls';
-                                $mail->Port       = 587;
-                                $mail->SMTPDebug  = 1;
-                                $mail->SMTPAuth   = true;
-
-                                $mail->Username   = 'chendedaniel@gmail.com';
-                                $mail->Password   = 'Arad07xup';
-
-                                $mail->SetFrom($from, $name);
-                                //$mail->AddReplyTo('no-reply@mycomp.com','no-reply');
-                                $mail->Subject = $subject;
-                                $mail->MsgHTML($body);
-/*
-                                                            $mail->AddAddress($parentEmail, $parentName);
-
-                                                                                        if(!$mail->Send()) {
-                                                                                            echo "Mailer Error: " . $mail->ErrorInfo;
-                                                                                        } else {
-                                                                                            echo "Message sent!";
-                                                                                        }
-
-
-                          */
-
+                                                          
+                                
+                                $user->send_mail($parentEmail, $body, $subject);
 
                             }
                         }
@@ -385,25 +350,7 @@ $news="";
 
                     }
 
-                  //  $studentName = $row3['StudentFN'].' '.$row3['StudentSN'].'<br /> ';
-
-
-
-                    //$body.=  $studentName;
-           //   echo $studentId;
-
-/*
-
-
-*/
-
-
-
-              //      $body.=$footer;
-                    //get pupils parents email
-
-
-
+                 
 
 
                 }
@@ -412,10 +359,7 @@ $news="";
                 echo $e->getMessage();
 
 
-                          //  $body = $header1.$schoolLogo.$header2.$schoolName.$header3.$body1.$body2.$body3.$newsContent.$footer;
-
-
-
+                         
             }
 
 

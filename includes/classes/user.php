@@ -222,6 +222,9 @@ class USER
     {
         session_destroy();
         unset($_SESSION['user_session']);
+        unset($_SESSION['user_role']);
+        unset($_SESSION['role_no']);
+        unset($_SESSION['email']);
         return true;
     }
 

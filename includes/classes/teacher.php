@@ -81,15 +81,15 @@ class teacher
         }
     }
 
-    public function AddTeacher($id, $roleNo, $name, $surname, $alias, $target_file)
+    public function AddTeacher( $roleNo, $name, $surname, $alias, $target_file)
     {
         try
         {
             $stmt = $this
                 ->db
-                ->prepare("INSERT INTO Teachers(TeachersID, School_role_no, Name, Surname, Alias,  Teacher_photo) VALUES(:id, :role, :name, :surname, :alias, :photo)");
+                ->prepare("INSERT INTO Teachers( School_role_no, Name, Surname, Alias,  Teacher_photo) VALUES(:id, :role, :name, :surname, :alias, :photo)");
 
-            $stmt->bindparam(":id", $id);
+            
             $stmt->bindparam(":role", $roleNo);
             $stmt->bindparam(":name", $name);
             $stmt->bindparam(":surname", $surname);
