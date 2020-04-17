@@ -12,16 +12,16 @@
     $repeatPassword = $_POST['RepeatPassword'];
     if (($password == $repeatPassword) || (strlen($password) > 12)) {
         $hashedpassword = password_hash($password, PASSWORD_ARGON2I);
-        $user - > addUser($roleNo, $name, $surname, $username, $status, $email, $hashedpassword);
-        $last_inserted_id = $user - > getLastUser($roleNo, $email, $status);
+        $user -> addUser($roleNo, $name, $surname, $username, $status, $email, $hashedpassword);
+        $last_inserted_id = $user -> getLastUser($roleNo, $email, $status);
         if ($status == "Parent") {
             $primary = 0;
             $parent_contactNo = Null;
-            $parents - > AddParent($last_inserted_id, $roleNo, $name, $surname, $primary, $parent_contactNo, $email);
+            $parents -> AddParent($last_inserted_id, $roleNo, $name, $surname, $primary, $parent_contactNo, $email);
         } else if ($status == "Teacher") {
             $alias = NULL;
             $photo = "../dist/img/avatar5.png";
-            $teacher - > AddTeacher($last_inserted_id, $roleNo, $name, $surname, $alias, $photo);
+            $teacher -> AddTeacher($last_inserted_id, $roleNo, $name, $surname, $alias, $photo);
         }
         header("Refresh:0");
     }
