@@ -15,13 +15,8 @@ if (isset($_POST['submitForm'])) {
 		$attendance = 1;
     }
    
-    $studentid = '1';
-    $message = 'test';
-    $email = 'email@test.ie';
-
-	if ($hot_link->send_message($studentid, $message, $email)) {
-     // 
-		$user->redirect("index.php");
+ 	if ($hot_link->send_message($studentid, $message, $email)) {
+        
 		$success = "Your message was sent successfully !";
 	} else {
 		$error = "There was an error sending your message !";
@@ -207,14 +202,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                     <!-- /.box -->
                     <?php if(isset($error)) { ?>
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" id="alertdiv">
                         <i class="glyphicon glyphicon-warning-sign"></i> &nbsp;
                         <?php echo $error; ?>
                     </div>
                     <?php } ?>
 
                     <?php if(isset($success)) { ?>
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" id="alertdiv">
                         <i class="glyphicon  glyphicon-send"></i> &nbsp;
                         <?php echo $success; ?>
                     </div>
@@ -265,6 +260,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="../dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="../dist/js/demo.js"></script>
+    <script>
+        setTimeout(function() {
+            $('#alertdiv').fadeOut('fast');
+        }, 3000); // <-- time in milliseconds
+    </script>
 </body>
 
 </html>

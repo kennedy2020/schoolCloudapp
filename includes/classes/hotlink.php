@@ -33,36 +33,15 @@ class hotlink
     {
         try {
            
-            $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
-        $stmt = $this->db->prepare("INSERT INTO hotlinks (id_pupil, message, From) VALUES(:id_pupil, :message, :from)");
-            $stmt->bindparam(":id_pupil", $studentid);
-            $stmt->bindparam(":message", $message);         
-            $stmt->bindparam(":from", $user_email);
-            $stmt->execute();        
-         //   return $stmt;
-            print_r($stmt->errorInfo());
-/*
-       $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
-            $stmt = $this->db->prepare("INSERT INTO hotlinks(id_pupil, message, From)VALUES(:id_pupils, :messages, :emails)");
-
-            $stmt->execute([
-                ':id_pupils' => $studentid,
-                ':messages' => $message,
-                ':emails' => $user_email
             
-         ]);
-         print_r($stmt->errorInfo());
-        
-
-        $data = [
-            'name' => $studentid,
-            'surname' => $message,
-            'sex' => $user_email,
-        ];
-        $sql = "INSERT INTO hotlinks (id_pupil, message, From) VALUES (:name, :surname, :sex)";
-        $stmt= $this->db->prepare($sql);
-        $stmt->execute($data);
-*/
+        $stmt = $this->db->prepare("INSERT INTO hotlinks (id_pupil, messages, user_email) VALUES(:id_pupil, :messages, :email)");
+            $stmt->bindparam(":id_pupil", $studentid);
+            $stmt->bindparam(":messages", $message);         
+            $stmt->bindparam(":email", $user_email);
+            $stmt->execute();  
+           
+         return true;
+    
 
         } catch (PDOException $e) {
             echo $e->getMessage();
