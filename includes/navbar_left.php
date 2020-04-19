@@ -63,7 +63,7 @@
        <!--users -->
        <li>
             <a href="users.php" >
-                <i class="fa fa-users"></i>Users
+                <i class="fa fa-users"></i> Users
 
             </a>
         </li>
@@ -71,7 +71,13 @@
          <!--logs -->
        <li>
             <a href="logs.php" >
-                <i class="fa fa-info"></i>Logs
+                <i class="fa fa-info"></i> Logs
+
+            </a>
+        </li>
+        <li>
+            <a href="pwdreset_logs.php" >
+                <i class="fa fa-info"></i> Password resets Logs
 
             </a>
         </li>

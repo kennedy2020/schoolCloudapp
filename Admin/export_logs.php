@@ -7,4 +7,8 @@ if (isset($_POST['download'])) {
 
   $logs->download_logs();
 
+}else if (isset($_POST['pwdDownload'])) {  
+
+  $logs->download_pwd_logs();
+
 }

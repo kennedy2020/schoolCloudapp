@@ -6,14 +6,10 @@ $user->is_loggedin();
   if (isset($_POST['log_delete'])) {
 
     $id = $_POST['id'];
-    $logs->log_delete($id);
+    $logs->pwd_log_delete($id);
     header("Refresh:0");
 
 }
-
-
-
-
 ?>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -46,7 +42,7 @@ $user->is_loggedin();
 
                     <div class="col-lg-4 col-md-4 ">
 
-                        <h1> Activity Logs </h1>
+                        <h1> Password Reset Logs </h1>
 
                     </div>
 
@@ -59,9 +55,9 @@ $user->is_loggedin();
                             <div class="">
 
                                 <div class="">
-                                <form class="" name="downloadForm" method="post" action="export_logs.php">
+                                <form class="" name="pwdForm" method="post" action="export_logs.php">
                                 
-                                    <button type="submit" value="Submit" name="download" class="btn btn-success"><i class="fa fa-download"></i> Download Logs</button>
+                                    <button type="submit" value="Submit" name="pwdDownload" class="btn btn-success"><i class="fa fa-download"></i> Download Logs</button>
                                 </form>
                                 </div>
                                 <!-- /.box-body -->
@@ -90,17 +86,15 @@ $user->is_loggedin();
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>IP</th>
-                                            <th>Date / Time</th>
-                                            <th>Username</th>
-                                            <th>Action taken</th>
-
+                                            <th>Email</th>
+                                            <th>Token</th>
+                                            <th>Reset Timeout</th>
                                             <th>Edit / Delete</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $logs->get_logs(); ?>
+                                        <?php $logs->get_password_logs(); ?>
 
                                         </tfoot>
                                 </table>

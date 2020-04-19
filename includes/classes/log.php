@@ -48,11 +48,57 @@ class LOG extends USER
         }
     }
 
+    public function get_password_logs()
+    {
+        try {
+            $stmts = $this->db->prepare("SELECT * FROM password_resets");
+
+            $stmts->execute();
+            while ($row = $stmts->fetch()) {  
+
+                echo '
+<tr>
+                  <td>' . $row['id'] . '</td>
+                  <td>' . $row['email'] . '</td>
+                  <td>' . $row['token'] . '</td>
+                  <td>' . $row['reset_timeout'] . '</td>
+       
+                
+                  <td>
+                           <a class="btn btn-sm btn-danger " type="button"
+                       data-toggle="modal"
+                       data-target="#log_delete" data-id="' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>
+
+
+                  </td>
+                </tr>
+
+
+                ';
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 
     public function log_delete($id)
     {
         try {
             $stmt = $this->db->prepare("DELETE FROM logs WHERE id=:id");
+
+            $stmt->bindparam(":id", $id);
+
+            $stmt->execute();
+
+            return $stmt;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+    public function pwd_log_delete($id)
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM password_resets WHERE id=:id");
 
             $stmt->bindparam(":id", $id);
 
@@ -86,6 +132,45 @@ public function download_logs(){
         while($row = $stmts->fetch())
         {
             $lineData = array($row['id'], $row['ip'], $row['action_time'], $row['username'], $row['user_action']);
+            fputcsv($f, $lineData, $delimiter);
+        }        
+        //move back to beginning of file
+        fseek($f, 0);        
+        //set headers to download file rather than displayed
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $filename . '";');
+        
+        //output all remaining data on a file pointer
+        fpassthru($f);
+    
+        } 
+  } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+
+public function download_pwd_logs(){
+
+    try {
+        //get records from database
+    
+        $stmts = $this->db->prepare("SELECT * FROM password_resets ORDER BY id DESC");
+    
+        $stmts->execute();
+        if($stmts->rowCount() > 0)
+        {
+        $delimiter = ",";
+        $filename = "password_reset_logs_" . date('Y-m-d') . ".csv";        
+        //create a file pointer
+        $f = fopen('php://memory', 'w');        
+        //set column headers
+        $fields = array('Id', 'Email', 'Token', 'Reset Timeout');
+        fputcsv($f, $fields, $delimiter);        
+        //output each row of the data, format line as csv and write to file pointer
+        while($row = $stmts->fetch())
+        {
+            $lineData = array($row['id'], $row['email'], $row['token'], $row['reset_timeout']);
             fputcsv($f, $lineData, $delimiter);
         }        
         //move back to beginning of file
