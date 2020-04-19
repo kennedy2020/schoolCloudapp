@@ -9,7 +9,7 @@ $role= $_SESSION['role_no'];
 if (isset($_POST['submitForm'])) {
 	$studentid = $_POST['student_id'];
 	$message = strip_tags($_POST['contact']);
-	$email = $_SESSION['email'];
+	$email = strip_tags($_SESSION['email']);
 	if (isset($_POST['attend'])) {
 		$attendance = 0;
 	} else {

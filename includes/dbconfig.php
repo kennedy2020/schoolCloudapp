@@ -1,7 +1,9 @@
 <?php
 
 session_start();
+session_regenerate_id();
 
+date_default_timezone_set('Europe/Dublin');
 
 $DB_host = "localhost";
 $DB_user = "root";

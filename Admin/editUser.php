@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
     $name = strip_tags($_POST['user_name']);
     $surname = strip_tags($_POST['user_surname']);
     $status = strip_tags($_POST['status']);
-    $email = strip_tags($_POST['user_email']);
+    $email = filter_var($_POST['user_email'], FILTER_SANITIZE_EMAIL);
     $username = strip_tags($_POST['username']);
     $roleNo = strip_tags($_POST['SchoolRole']);
     $user_id = strip_tags($_POST['User_id']);

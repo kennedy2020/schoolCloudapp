@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/dbconfig.php';
+
   date_default_timezone_set('Europe/Dublin');
   $time=date('Y-m-d H:i:s'); //Storing time in variable
   $max_time_in_seconds = 10; //set max amount of time for attemped logins 600 mean 10 minutes 10*60, 5*60 = 5mins, 60*60 = 1hr, to set to 2hrs change it to 2*60*60

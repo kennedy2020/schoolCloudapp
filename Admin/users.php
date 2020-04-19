@@ -7,7 +7,7 @@
     $surname = strip_tags($_POST['user_surname']);
     $username = strip_tags($_POST['username']);
     $status = strip_tags($_POST['status']);
-    $email = strip_tags($_POST['user_email']);
+    $email = filter_var($_POST['user_email'], FILTER_SANITIZE_EMAIL);
     $password = strip_tags($_POST['UserPassword']);
     $repeatPassword = strip_tags($_POST['RepeatPassword']);
     if (($password == $repeatPassword) || (strlen($password) > 12)) {

@@ -83,7 +83,7 @@ class USER
     function login_attempt_count($max_time_in_seconds)
     {
         try {
-            date_default_timezone_set('Europe/Dublin');
+       
             $datetime=date('Y-m-d H:i:s'); //Storing time in variable
             $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
 
@@ -220,12 +220,22 @@ class USER
 
     public function logout()
     {
+        // Unset all of the session variables.
+        $_SESSION = array();
+
+        // If it's desired to kill the session, also delete the session cookie.
+        // Note: This will destroy the session, and not just the session data!
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        // Finally, destroy the session.
         session_destroy();
-        unset($_SESSION['user_session']);
-        unset($_SESSION['user_role']);
-        unset($_SESSION['role_no']);
-        unset($_SESSION['email']);
-        return true;
+
     }
 
 
