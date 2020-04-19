@@ -1,0 +1,5 @@
+[19-Apr-2020 13:04:09 Europe/Dublin] PHP Notice:  Undefined variable: user in C:\xampp\htdocs\schoolCloud\Admin\SchoolCalendar.php on line 4
+[19-Apr-2020 13:04:09 Europe/Dublin] PHP Fatal error:  Uncaught Error: Call to a member function is_loggedin() on null in C:\xampp\htdocs\schoolCloud\Admin\SchoolCalendar.php:4
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\schoolCloud\Admin\SchoolCalendar.php on line 4
