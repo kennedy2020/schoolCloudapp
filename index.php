@@ -23,6 +23,8 @@ if (isset($_POST['btn-login'])) {
     } else {
         $_SESSION['error'] = 'Too many login attempts. Please wait '. $max_time_in_seconds.' seconds';
           $condition = "False"; //hide login form
+          //notify the admin about this
+          $logs->notify_admin();
           header("Refresh: $max_time_in_seconds");
     }
 }

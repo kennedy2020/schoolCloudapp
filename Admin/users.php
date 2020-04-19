@@ -25,7 +25,18 @@
         }
         header("Refresh:0");
     }
-} ?>
+}
+
+
+if (isset($_POST['user_delete'])) {
+
+    $id = $_POST['id'];
+    $user->DeleteUser($id);
+    header("Refresh:0");
+
+}
+
+?>
 
 <body class="hold-transition skin-blue sidebar-mini">
 
@@ -107,6 +118,7 @@
                                             <th>ID</th>
                                             <th>First Name</th>
                                             <th>Second Name</th>
+                                            <th>Username</th>
                                             <th>Email</th>
                                             <th>Status</th>
 
@@ -206,6 +218,7 @@
                                     <select class="form-control" name="status">
                                         <option value="Parent">Parent</option>
                                         <option value="Teacher">Teacher</option>
+                                        <option value="Teacher">Admin</option>
                                     </select>
                                 </div>
 
@@ -227,7 +240,7 @@
 
             <!--delete user modal-->
 
-            <div class="modal fade  modal-danger" id="users_delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal fade  modal-danger" id="user_delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -237,11 +250,11 @@
                         </div>
                         <div class="modal-body">
                             <form class="" name="commentform" method="post">
-                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete the selected pupil?</div>
+                                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete the selected user?</div>
                                 <input type="hidden" name="id" value="" />
                         </div>
                         <div class="modal-footer ">
-                            <button type="submit" value="Submit" name="pupil_delete" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+                            <button type="submit" value="Submit" name="user_delete" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
                             </form>
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
                         </div>
@@ -318,7 +331,7 @@
             </script>
 
             <script type="text/javascript">
-                $('#pupil_delete').on('show.bs.modal', function(e) {
+                $('#user_delete').on('show.bs.modal', function(e) {
                     var Id = $(e.relatedTarget).data('id');
                     $(e.currentTarget).find('input[name="id"]').val(Id);
 

@@ -223,6 +223,23 @@ if (isset($_POST['publishNews'])){
               </a>
             </div><!-- ./col -->
 
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <a href="logs.php">
+                <div class="small-box bg-green">
+                  <div class="inner">
+                    <h3>Logs</h3>
+
+                  </div>
+                  <div class="icon">
+                    <p class="icon-info"></p>
+
+                  </div>
+                  <p class="small-box-footer"></p>
+                </div>
+              </a>
+            </div><!-- ./col -->
+
 
           </div><!-- /.row -->
 

@@ -55,7 +55,7 @@
         <!--school info -->
         <li>
             <a href="school_profile.php" >
-                <i class="fa fa-hospital-o"></i> </i> School info
+                <i class="fa fa-hospital-o"></i> School info
 
             </a>
         </li>
@@ -63,7 +63,15 @@
        <!--users -->
        <li>
             <a href="users.php" >
-                <i class="fa fa-users"></i></i> Users
+                <i class="fa fa-users"></i>Users
+
+            </a>
+        </li>
+
+         <!--logs -->
+       <li>
+            <a href="logs.php" >
+                <i class="fa fa-info"></i>Logs
 
             </a>
         </li>

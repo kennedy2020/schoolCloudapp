@@ -71,8 +71,7 @@ class USER
                    $message = "Log in attempt";
                    $this->log_in_db($ip, $datetime, $username, $message);
                                       
-                  //$this ->login_attempt_count($max_time_in_seconds, $max_attempts, $ip, $datetime);
-                   $_SESSION['error'] = 'Invalid Username or Password  ';
+                    $_SESSION['error'] = 'Invalid Username or Password  ';
                        
                 return false;
             }
@@ -86,19 +85,14 @@ class USER
        
             $datetime=date('Y-m-d H:i:s'); //Storing time in variable
             $ip = $_SERVER['REMOTE_ADDR']; //getting the IP Address
-
-            // First we delete old attempts from the table
-
-  
+            // First we delete old attempts from the table  
             $oldest = strtotime(date("Y-m-d H:i:s")." - ".$max_time_in_seconds." seconds");
             $oldest = date("Y-m-d H:i:s", $oldest);
             $stmt = $this->db->prepare("DELETE FROM loginattempts WHERE  action_time < :setgracetime AND ip =:ip");
             $stmt->execute(array(':setgracetime' => $oldest, ':ip' => $ip));
             $stmt->execute();
-         
-              
-            // Next we insert this attempt into the table
-         
+                      
+            // Next we insert this attempt into the table         
             $stmt = $this->db->prepare("INSERT INTO loginattempts(ip, user_action, action_time)
                     VALUES(:ip, :user_action, :action_time)");
 
@@ -252,7 +246,7 @@ class USER
                   <td>' . $row['id'] . '</td>
                   <td>' . $row['user_name'] . '</td>
                   <td>' . $row['user_surname'] . '</td>
-
+                  <td>' . $row['user_username'] . '</td>
                   <td>' . $row['user_email'] . '</td>
                   <td>' . $row['user_role'] . '</td>
                   <td>
@@ -264,7 +258,7 @@ class USER
 
                     <a class="btn btn-sm btn-danger " type="button"
                        data-toggle="modal"
-                       data-target="#deleteUser" data-id="' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>
+                       data-target="#user_delete" data-id="' . $row['id'] . '"><i class="fa fa-trash"></i> Delete</a>
 
 
                   </td>
@@ -438,7 +432,7 @@ class USER
                 
      }
 
-     private function send_mail($email,$message,$subject)
+     public function send_mail($email,$message,$subject)
      {      
        
         require 'plugins/PHPMailer/src/Exception.php';

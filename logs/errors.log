@@ -10,3 +10,4 @@ Stack trace:
 [19-Apr-2020 13:11:07 Europe/Dublin] PHP Notice:  Undefined variable: roleNo in C:\xampp\htdocs\schoolCloud\Admin\index.php on line 276
 [19-Apr-2020 13:11:07 Europe/Dublin] PHP Notice:  Undefined variable: roleNo in C:\xampp\htdocs\schoolCloud\Admin\index.php on line 280
 [19-Apr-2020 13:11:07 Europe/Dublin] PHP Notice:  Undefined variable: roleNo in C:\xampp\htdocs\schoolCloud\Admin\index.php on line 289
+[19-Apr-2020 13:46:39 Europe/Dublin] PHP Notice:  Undefined variable: roleNo in C:\xampp\htdocs\schoolCloud\Admin\logs.php on line 34

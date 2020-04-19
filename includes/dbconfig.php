@@ -4,20 +4,13 @@ session_start();
 session_regenerate_id();
 
 date_default_timezone_set('Europe/Dublin');
-/*
-// turning display errors on in development
-//ini_set('display_errors', 1);
 
-// turning display errors off
-ini_set('display_errors', 0);
-
-*/
 
 error_reporting(E_ALL); // Error/Exception engine, always use E_ALL
 
 ini_set('ignore_repeated_errors', TRUE); // always use TRUE
 
-ini_set('display_errors', FALSE); // Error/Exception display, use FALSE only in production environment or real server. Use TRUE in development environment
+ini_set('display_errors', TRUE); // Error/Exception display, use FALSE only in production environment or real server. Use TRUE in development environment
 
 ini_set('log_errors', TRUE); // Error/Exception file logging engine.
 ini_set('error_log', '../logs/errors.log'); // Logging file path
@@ -68,6 +61,7 @@ include_once 'classes/pupil.php';
 include_once 'classes/school.php';
 include_once 'classes/teacher.php';
 include_once 'classes/user.php';
+include_once 'classes/log.php';
 
 $user = new USER($DB_con);
 $hot_link = new hotlink($DB_con);
@@ -80,5 +74,6 @@ $parents = new Parents($DB_con);
 $news = new News($DB_con);
 $dailyEmail = new DailyEmail($DB_con);
 $calendar = new Calendar($DB_con);
+$logs = new LOG($DB_con);
 
 ?>
